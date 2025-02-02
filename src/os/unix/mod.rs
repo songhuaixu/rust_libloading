@@ -278,7 +278,8 @@ impl Library {
                 target_os = "solaris",
                 target_os = "illumos",
                 target_os = "redox",
-                target_os = "fuchsia"
+                target_os = "fuchsia",
+                target_env = "ohos"
             ))] {
                 self.get_singlethreaded(symbol)
             } else {
@@ -465,7 +466,7 @@ impl<T> fmt::Debug for Symbol<T> {
 }
 
 // Platform specific things
-#[cfg_attr(any(target_os = "linux", target_os = "android"), link(name = "dl"))]
+#[cfg_attr(any(target_os = "linux", target_os = "android", target_env = "ohos"), link(name = "dl"))]
 #[cfg_attr(any(target_os = "freebsd", target_os = "dragonfly"), link(name = "c"))]
 extern "C" {
     fn dlopen(filename: *const raw::c_char, flags: raw::c_int) -> *mut raw::c_void;
